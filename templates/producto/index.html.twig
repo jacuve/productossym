@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Productos{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Control de Productos</h1>
+
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success">{{ message }}</div>
+    {% endfor %}
+
+    {% if stock_bajo|length > 0 %}
+        <div class="alert alert-warning">
+            ⚠️ {{ stock_bajo|length }} producto(s) con stock bajo
+            <a href="{{ path('producto_stock_bajo') }}">Ver detalles</a>
+        </div>
+    {% endif %}
+
+    <div class="actions">
+        <a href="{{ path('producto_new') }}" class="btn btn-primary">+ Nuevo Producto</a>
+    </div>
+
+    <form method="get" class="search-form">
+        <input type="text" name="buscar" placeholder="Buscar por nombre o código..." value="{{ buscar }}">
+        <button type="submit">Buscar</button>
+        {% if buscar %}
+            <a href="{{ path('producto_index') }}" class="btn">Limpiar</a>
+        {% endif %}
+    </form>
+
+    {% if productos is empty %}
+        <p>No hay productos{% if buscar %} que coincidan con "{{ buscar }}"{% endif %}.</p>
+    {% else %}
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Marca</th>
+                    <th>Precio</th>
+                    <th>Stock</th>
+                    <th>Stock Mín.</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                    <tr class="{{ producto.isStockBajo() ? 'stock-bajo' : '' }}">
+                        <td>{{ producto.codigo ?: '-' }}</td>
+                        <td>
+                            <a href="{{ path('producto_show', {'id': producto.id}) }}">{{ producto.nombre }}</a>
+                        </td>
+                        <td>{{ producto.categoria ?: '-' }}</td>
+                        <td>{{ producto.marca ?: '-' }}</td>
+                        <td>{{ producto.precio|number_format(2) }}€</td>
+                        <td>{{ producto.stock }}</td>
+                        <td>{{ producto.stockMinimo ?: '-' }}</td>
+                        <td>
+                            <a href="{{ path('producto_show', {'id': producto.id}) }}" class="btn btn-sm">Ver</a>
+                            <a href="{{ path('producto_edit', {'id': producto.id}) }}" class="btn btn-sm">Editar</a>
+                            <form method="post" action="{{ path('producto_delete', {'id': producto.id}) }}" style="display:inline;">
+                                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ producto.id) }}">
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este producto?')">Eliminar</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+</div>
+{% endblock %}

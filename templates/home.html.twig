@@ -1,0 +1,16 @@
+{# templates/home.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Página de Inicio</h1>
+    <ul>
+        <li><a href="{{ path('app_detail', {'id': 10}) }}">Ver detalle del producto 10</a></li>
+        <li><a href="{{ path('app_detail', {'id': 55}) }}">Ver detalle del producto 55</a></li>
+    </ul>
+    <h1>{{ titulo }}</h1>
+    <ul>
+        {% for s in items %}
+            <li>{{ s }}</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
