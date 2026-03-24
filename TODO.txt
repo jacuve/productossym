@@ -1,0 +1,130 @@
+================================================================================
+                           PROYECTO GESTIÓN DE PRODUCTOS
+                              TAREAS PENDIENTES
+================================================================================
+
+ESTADO ACTUAL: Proyecto Symfony + React con CRUD básico de productos
+ENTORNO:       Symfony 8 + React + PostgreSQL
+
+================================================================================
+                              FUNCIONALIDADES FALTANTES
+================================================================================
+
+--- ALTA PRIORIDAD (Crítico para producción) ---
+
+[ ] 1. VALIDACIÓN DE FORMULARIOS
+     - Agregar validación server-side en ProductoApiController
+     - Usar Symfony Validator (#[Assert\...])
+     - Validar campos requeridos: nombre, precio, stock
+     - Validar rangos: precio > 0, stock >= 0
+
+[ ] 2. AUTENTICACIÓN Y AUTORIZACIÓN
+     - Instalar symfony/security-bundle
+     - Crear entidad Usuario
+     - Sistema de login/registro
+     - Proteger rutas /api/* con autenticación
+     - Roles: ROLE_USER, ROLE_ADMIN
+
+[ ] 3. GESTIÓN DE ERRORES
+     - Manejo centralizado de excepciones
+     - Mensajes de error amigables en API
+     - Logging de errores
+     - Página de error 404 personalizada
+
+[ ] 4. TESTS UNITARIOS Y DE INTEGRACIÓN
+     - Tests para ProductoRepository
+     - Tests para ProductoApiController
+     - Tests para componentes React
+     - Configurar Coverage con PHPUnit
+
+--- MEDIA PRIORIDAD (Importante para uso real) ---
+
+[ ] 5. PAGINACIÓN
+     - Implementar paginación en listados
+     - Parámetros: page, limit
+     - Totales para frontend
+
+[ ] 6. EXPORTACIÓN DE DATOS
+     - Exportar productos a CSV
+     - Exportar productos a Excel
+     - Reporte de stock bajo en PDF
+
+[ ] 7. CATEGORÍAS
+     - Crear entidad Categoria
+     - Relación OneToMany con Producto
+     - CRUD de categorías
+     - Filtrar productos por categoría
+
+[ ] 8. HISTORIAL DE STOCK
+     - Crear entidad MovimientoStock
+     - Registrar entradas y salidas
+     - Auditoría de inventario
+
+[ ] 9. DOCUMENTACIÓN API
+     - Generar documentación OpenAPI/Swagger
+     - Instalar nelmio/api-doc-bundle
+     - Probar endpoints con Postman/Insomnia
+
+--- BAJA PRIORIDAD (Mejoras) ---
+
+[ ] 10. PAGINACIÓN Y FILTROS AVANZADOS
+      - Filtro por rango de precios
+      - Filtro por categoría/marca
+      - Ordenamiento múltiple
+
+[ ] 11. IMÁGENES DE PRODUCTOS
+      - Subir imágenes (Flysystem)
+      - Redimensionar imágenes
+      - Galería de productos
+
+[ ] 12. DASHBOARD/ESTADÍSTICAS
+      - Total de productos
+      - Valor del inventario
+      - Productos con stock bajo
+      - Gráficos con Chart.js o Recharts
+
+[ ] 13. NOTIFICACIONES
+      - Alerta cuando stock bajo
+      - Notificaciones por email
+      - Webhook para integraciones
+
+[ ] 14. OPTIMIZACIÓN
+      - Cache de consultas frecuentes
+      - Índices en base de datos
+      - Lazy loading de imágenes
+
+[ ] 15. DESPLIEGUE
+      - Configurar producción (.env.prod)
+      - Docker/Docker Compose
+      - CI/CD con GitHub Actions
+
+================================================================================
+                              ORDEN RECOMENDADO
+================================================================================
+
+1. Validación de formularios        (2 horas)
+2. Manejo de errores                (1 hora)
+3. Tests unitarios                  (3 horas)
+4. Autenticación                    (4 horas)
+5. Paginación                       (1 hora)
+6. Categorías                       (3 horas)
+7. Historial de stock               (3 horas)
+8. Exportación                      (2 horas)
+9. Documentación API                (2 horas)
+10. Dashboard                       (4 horas)
+
+================================================================================
+                              RECURSOS APRENDIZAJE
+================================================================================
+
+React:
+- Documentación: https://react.dev
+- Hooks: https://react.dev/reference
+- React Router: https://reactrouter.com
+
+Symfony:
+- Validación: https://symfony.com/doc/current/validation.html
+- Security: https://symfony.com/doc/current/security.html
+- Testing: https://symfony.com/doc/current/testing.html
+
+================================================================================
