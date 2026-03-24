@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Stock Bajo{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>⚠️ Productos con Stock Bajo</h1>
+
+    {% if productos is empty %}
+        <p>No hay productos con stock bajo.</p>
+    {% else %}
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>Código</th>
+                    <th>Nombre</th>
+                    <th>Stock Actual</th>
+                    <th>Stock Mínimo</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for producto in productos %}
+                    <tr class="stock-bajo">
+                        <td>{{ producto.codigo ?: '-' }}</td>
+                        <td>
+                            <a href="{{ path('producto_show', {'id': producto.id}) }}">{{ producto.nombre }}</a>
+                        </td>
+                        <td class="stock-actual">{{ producto.stock }}</td>
+                        <td>{{ producto.stockMinimo }}</td>
+                        <td>
+                            <a href="{{ path('producto_edit', {'id': producto.id}) }}" class="btn btn-sm">Reponer Stock</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+
+    <div class="form-actions" style="margin-top: 20px;">
+        <a href="{{ path('producto_index') }}" class="btn">Volver al Listado</a>
+    </div>
+</div>
+{% endblock %}

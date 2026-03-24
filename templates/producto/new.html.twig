@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nuevo Producto{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>Nuevo Producto</h1>
+
+    <form method="post">
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="nombre">Nombre *</label>
+                <input type="text" id="nombre" name="nombre" required>
+            </div>
+
+            <div class="form-group">
+                <label for="codigo">Código</label>
+                <input type="text" id="codigo" name="codigo">
+            </div>
+
+            <div class="form-group">
+                <label for="precio">Precio (€) *</label>
+                <input type="number" id="precio" name="precio" step="0.01" required>
+            </div>
+
+            <div class="form-group">
+                <label for="stock">Stock *</label>
+                <input type="number" id="stock" name="stock" required>
+            </div>
+
+            <div class="form-group">
+                <label for="stock_minimo">Stock Mínimo</label>
+                <input type="number" id="stock_minimo" name="stock_minimo">
+            </div>
+
+            <div class="form-group">
+                <label for="categoria">Categoría</label>
+                <input type="text" id="categoria" name="categoria">
+            </div>
+
+            <div class="form-group">
+                <label for="marca">Marca</label>
+                <input type="text" id="marca" name="marca">
+            </div>
+
+            <div class="form-group">
+                <label for="peso">Peso</label>
+                <input type="number" id="peso" name="peso" step="0.01">
+            </div>
+
+            <div class="form-group">
+                <label for="unidad_medida">Unidad de Medida</label>
+                <input type="text" id="unidad_medida" name="unidad_medida" placeholder="kg, ud, l...">
+            </div>
+
+            <div class="form-group">
+                <label for="cantidad_minima">Cantidad Mínima</label>
+                <input type="number" id="cantidad_minima" name="cantidad_minima">
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="descripcion">Descripción</label>
+            <textarea id="descripcion" name="descripcion" rows="4"></textarea>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{{ path('producto_index') }}" class="btn">Cancelar</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

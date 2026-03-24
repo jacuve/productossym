@@ -1,0 +1,61 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ producto.nombre }}{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1>{{ producto.nombre }}</h1>
+
+    <div class="detail-grid">
+        <div class="detail-item">
+            <strong>ID:</strong> {{ producto.id }}
+        </div>
+        <div class="detail-item">
+            <strong>Código:</strong> {{ producto.codigo ?: '-' }}
+        </div>
+        <div class="detail-item">
+            <strong>Precio:</strong> {{ producto.precio|number_format(2) }}€
+        </div>
+        <div class="detail-item">
+            <strong>Stock:</strong> {{ producto.stock }}
+            {% if producto.isStockBajo() %}
+                <span class="badge badge-warning">⚠️ Stock bajo</span>
+            {% endif %}
+        </div>
+        <div class="detail-item">
+            <strong>Stock Mínimo:</strong> {{ producto.stockMinimo ?: '-' }}
+        </div>
+        <div class="detail-item">
+            <strong>Categoría:</strong> {{ producto.categoria ?: '-' }}
+        </div>
+        <div class="detail-item">
+            <strong>Marca:</strong> {{ producto.marca ?: '-' }}
+        </div>
+        <div class="detail-item">
+            <strong>Peso:</strong> {{ producto.peso ? producto.peso ~ ' ' ~ producto.unidadMedida : '-' }}
+        </div>
+        <div class="detail-item">
+            <strong>Cantidad Mínima:</strong> {{ producto.cantidadMinima ?: '-' }}
+        </div>
+        <div class="detail-item">
+            <strong>Estado:</strong> {{ producto.activo ? 'Activo' : 'Inactivo' }}
+        </div>
+        <div class="detail-item">
+            <strong>Fecha Creación:</strong> {{ producto.fechaCreacion|date('d/m/Y H:i') }}
+        </div>
+        <div class="detail-item">
+            <strong>Última Actualización:</strong> {{ producto.fechaActualizacion|date('d/m/Y H:i') }}
+        </div>
+    </div>
+
+    <div class="detail-item full-width">
+        <strong>Descripción:</strong>
+        <p>{{ producto.descripcion ?: 'Sin descripción' }}</p>
+    </div>
+
+    <div class="form-actions">
+        <a href="{{ path('producto_edit', {'id': producto.id}) }}" class="btn btn-primary">Editar</a>
+        <a href="{{ path('producto_index') }}" class="btn">Volver al Listado</a>
+    </div>
+</div>
+{% endblock %}
