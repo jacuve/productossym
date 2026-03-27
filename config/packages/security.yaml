@@ -15,15 +15,16 @@ security:
         login:
             pattern: ^/api/login
             stateless: true
-            security: false
+            provider: app_user_provider
+            json_login:
+                check_path: /api/login
+                username_path: email
+                password_path: password
         api:
             pattern: ^/api
             stateless: true
             provider: app_user_provider
-            custom_authenticators:
-                - App\Security\JsonLoginAuthenticator
-            logout:
-                path: /api/logout
+            jwt: ~
 
     access_control:
         - { path: ^/api/login, roles: PUBLIC_ACCESS }

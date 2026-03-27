@@ -11,23 +11,9 @@ use App\Entity\Usuario;
 class AuthController extends AbstractController
 {
     #[Route('/api/login', name: 'api_login', methods: ['POST'])]
-    public function login(#[CurrentUser] ?Usuario $user): JsonResponse
+    public function login(): void
     {
-        if (null === $user) {
-            return $this->json([
-                'error' => 'Credenciales inválidas',
-            ], 401);
-        }
-
-        return $this->json([
-            'message' => 'Login exitoso',
-            'user' => [
-                'id' => $user->getId(),
-                'email' => $user->getEmail(),
-                'nombre' => $user->getNombre(),
-                'roles' => $user->getRoles(),
-            ],
-        ]);
+        throw new \LogicException('This method is handled by json_login firewall');
     }
 
     #[Route('/api/logout', name: 'api_logout', methods: ['POST'])]
