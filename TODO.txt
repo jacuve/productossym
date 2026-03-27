@@ -12,7 +12,7 @@ ENTORNO:       Symfony 8 + React + PostgreSQL
 
 --- ALTA PRIORIDAD (Crítico para producción) ---
 
-[ ] 1. VALIDACIÓN DE FORMULARIOS
+[X] 1. VALIDACIÓN DE FORMULARIOS
      - Agregar validación server-side en ProductoApiController
      - Usar Symfony Validator (#[Assert\...])
      - Validar campos requeridos: nombre, precio, stock
