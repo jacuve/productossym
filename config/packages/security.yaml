@@ -12,18 +12,12 @@ security:
         dev:
             pattern: ^/(_profiler|_wdt|assets|build)/
             security: false
-        login:
-            pattern: ^/api/login
-            stateless: true
-            provider: app_user_provider
-            json_login:
-                check_path: /api/login
-                username_path: email
-                password_path: password
         api:
             pattern: ^/api
             stateless: true
             provider: app_user_provider
+            custom_authenticators:
+                - App\Security\JsonLoginAuthenticator
             jwt: ~
 
     access_control:

@@ -13,7 +13,7 @@ class AuthController extends AbstractController
     #[Route('/api/login', name: 'api_login', methods: ['POST'])]
     public function login(): void
     {
-        throw new \LogicException('This method is handled by json_login firewall');
+        throw new \LogicException('This method is handled by the JsonLoginAuthenticator');
     }
 
     #[Route('/api/logout', name: 'api_logout', methods: ['POST'])]
