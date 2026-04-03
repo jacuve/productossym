@@ -15,6 +15,13 @@ security:
         main:
             lazy: true
             provider: app_user_provider
+            form_login:
+                login_path: app_login
+                check_path: app_login
+                default_target_path: /react
+            logout:
+                path: app_logout
+                target: /login
         api:
             pattern: ^/api
             stateless: true
@@ -24,6 +31,7 @@ security:
             jwt: ~
 
     access_control:
+        - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/login, roles: PUBLIC_ACCESS }
         - { path: ^/api/register, roles: PUBLIC_ACCESS }
         - { path: ^/api/admin, roles: ROLE_ADMIN }
