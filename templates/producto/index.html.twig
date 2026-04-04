@@ -10,16 +10,18 @@
         <div class="alert alert-success">{{ message }}</div>
     {% endfor %}
 
-    {% if stock_bajo|length > 0 %}
+    {% if is_granted('ROLE_ADMIN') and stock_bajo|length > 0 %}
         <div class="alert alert-warning">
             ⚠️ {{ stock_bajo|length }} producto(s) con stock bajo
             <a href="{{ path('producto_stock_bajo') }}">Ver detalles</a>
         </div>
     {% endif %}
 
+    {% if is_granted('ROLE_ADMIN') %}
     <div class="actions">
         <a href="{{ path('producto_new') }}" class="btn btn-primary">+ Nuevo Producto</a>
     </div>
+    {% endif %}
 
     <form method="get" class="search-form">
         <input type="text" name="buscar" placeholder="Buscar por nombre o código..." value="{{ buscar }}">
@@ -59,11 +61,13 @@
                         <td>{{ producto.stockMinimo ?: '-' }}</td>
                         <td>
                             <a href="{{ path('producto_show', {'id': producto.id}) }}" class="btn btn-sm">Ver</a>
+                            {% if is_granted('ROLE_ADMIN') %}
                             <a href="{{ path('producto_edit', {'id': producto.id}) }}" class="btn btn-sm">Editar</a>
                             <form method="post" action="{{ path('producto_delete', {'id': producto.id}) }}" style="display:inline;">
                                 <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ producto.id) }}">
                                 <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este producto?')">Eliminar</button>
                             </form>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}

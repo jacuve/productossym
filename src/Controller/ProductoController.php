@@ -9,6 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('/productos')]
 class ProductoController extends AbstractController
@@ -39,6 +40,7 @@ class ProductoController extends AbstractController
     }
 
     #[Route('/nuevo', name: 'producto_new', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request): Response
     {
         $producto = new Producto();
@@ -76,6 +78,7 @@ class ProductoController extends AbstractController
     }
 
     #[Route('/{id}/editar', name: 'producto_edit', methods: ['GET', 'POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Producto $producto): Response
     {
         if ($request->isMethod('POST')) {
@@ -105,6 +108,7 @@ class ProductoController extends AbstractController
     }
 
     #[Route('/{id}/eliminar', name: 'producto_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function delete(Request $request, Producto $producto): Response
     {
         if ($this->isCsrfTokenValid('delete' . $producto->getId(), $request->request->get('_token'))) {
@@ -118,6 +122,7 @@ class ProductoController extends AbstractController
     }
 
     #[Route('/stock-bajo', name: 'producto_stock_bajo', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
     public function stockBajo(): Response
     {
         $productos = $this->productoRepository->findStockBajo();
