@@ -2,13 +2,19 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h1>Detalle: {{ producto.nombre }}</h1>
-<p>Precio: {{ producto.precio }}€</p>
-
-{% if producto.stock %}
-    <span style="color: green;">Disponible</span>
-{% else %}
-    <span style="color: red;">Agotado</span>
-{% endif %}
+<h1>{{ producto.nombre }}</h1>
+<p><strong>Precio:</strong> {{ producto.precio }}€</p>
+<p><strong>Código:</strong> {{ producto.codigo }}</p>
+<p><strong>Categoría:</strong> {{ producto.categoria }}</p>
+<p><strong>Marca:</strong> {{ producto.marca }}</p>
+<p><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+<p><strong>Stock:</strong> {{ producto.stock }}</p>
+<p>
+    {% if producto.stock > 0 %}
+        <span style="color: green;">Disponible</span>
+    {% else %}
+        <span style="color: red;">Agotado</span>
+    {% endif %}
+</p>
     <a href="{{ path('app_home') }}">Volver al Inicio</a>
 {% endblock %}
