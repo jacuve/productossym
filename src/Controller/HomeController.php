@@ -4,18 +4,18 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use App\Repository\ProductoRepository;
 use Symfony\Component\Routing\Attribute\Route;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
-    public function index(): Response
+    public function index(ProductoRepository $productoRepository): Response
     {
-        $servicios = ['Diseño', 'Programación', 'Marketing', 'SEO'];
+        $productos = $productoRepository->findActivos();
 
         return $this->render('home.html.twig', [
-            'titulo' => 'Nuestros Servicios',
-            'items' => $servicios,
+            'productos' => $productos,
         ]);
     }
 }
