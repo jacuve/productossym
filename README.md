@@ -19,3 +19,9 @@ POST                /api/register   Público
 GET                 /api/me         Autenticado
 POST                /api/logout     Autenticado
 
+## Logs
+Dev  : var/log/dev.log
+Prod : php://stderr
+
+## Limpiar cache
+php bin/console cache:clear

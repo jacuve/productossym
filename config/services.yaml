@@ -25,3 +25,6 @@ services:
     App\EventListener\LoginSuccessListener:
         tags:
             - { name: kernel.event_listener, event: security.login_success, method: onLoginSuccess }
+
+    App\Controller\ErrorController:
+        tags: ['controller.service_arguments']
