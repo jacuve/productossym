@@ -54,7 +54,9 @@
     </div>
 
     <div class="form-actions">
+        {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('producto_edit', {'id': producto.id}) }}" class="btn btn-primary">Editar</a>
+        {% endif %}
         <a href="{{ path('producto_index') }}" class="btn">Volver al Listado</a>
     </div>
 </div>
