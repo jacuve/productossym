@@ -10,13 +10,15 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 #[Route('/productos')]
 class ProductoController extends AbstractController
 {
     public function __construct(
         private ProductoRepository $productoRepository,
-        private EntityManagerInterface $entityManager
+        private EntityManagerInterface $entityManager,
+        private ValidatorInterface $validator
     ) {}
 
     #[Route('/', name: 'producto_index', methods: ['GET'])]
@@ -44,6 +46,7 @@ class ProductoController extends AbstractController
     public function new(Request $request): Response
     {
         $producto = new Producto();
+        $errors = [];
 
         if ($request->isMethod('POST')) {
             $producto->setNombre($request->request->get('nombre'));
@@ -58,15 +61,22 @@ class ProductoController extends AbstractController
             $producto->setUnidadMedida($request->request->get('unidad_medida'));
             $producto->setCantidadMinima($request->request->get('cantidad_minima') ? (int) $request->request->get('cantidad_minima') : null);
 
-            $this->entityManager->persist($producto);
-            $this->entityManager->flush();
+            $errors = $this->validator->validate($producto);
 
-            $this->addFlash('success', 'Producto creado correctamente');
+            if (count($errors) === 0) {
+                $this->entityManager->persist($producto);
+                $this->entityManager->flush();
 
-            return $this->redirectToRoute('producto_index');
+                $this->addFlash('success', 'Producto creado correctamente');
+
+                return $this->redirectToRoute('producto_index');
+            }
         }
 
-        return $this->render('producto/new.html.twig');
+        return $this->render('producto/new.html.twig', [
+            'producto' => $producto,
+            'errors' => $errors,
+        ]);
     }
 
     #[Route('/{id}', name: 'producto_show', methods: ['GET'])]
@@ -81,6 +91,8 @@ class ProductoController extends AbstractController
     #[IsGranted('ROLE_ADMIN')]
     public function edit(Request $request, Producto $producto): Response
     {
+        $errors = [];
+
         if ($request->isMethod('POST')) {
             $producto->setNombre($request->request->get('nombre'));
             $producto->setDescripcion($request->request->get('descripcion'));
@@ -95,15 +107,20 @@ class ProductoController extends AbstractController
             $producto->setCantidadMinima($request->request->get('cantidad_minima') ? (int) $request->request->get('cantidad_minima') : null);
             $producto->setActivo($request->request->has('activo'));
 
-            $this->entityManager->flush();
+            $errors = $this->validator->validate($producto);
 
-            $this->addFlash('success', 'Producto actualizado correctamente');
+            if (count($errors) === 0) {
+                $this->entityManager->flush();
 
-            return $this->redirectToRoute('producto_index');
+                $this->addFlash('success', 'Producto actualizado correctamente');
+
+                return $this->redirectToRoute('producto_index');
+            }
         }
 
         return $this->render('producto/edit.html.twig', [
             'producto' => $producto,
+            'errors' => $errors,
         ]);
     }
 

@@ -102,6 +102,7 @@ class ProductoApiController extends AbstractController
         $data = json_decode($request->getContent(), true);
 
         $errors = [];
+
         if (isset($data['nombre'])) {
             if (empty(trim($data['nombre']))) {
                 $errors['nombre'] = 'El nombre no puede estar vacío';
@@ -128,7 +129,7 @@ class ProductoApiController extends AbstractController
             }
         }
 
-        if (isset($data['stockMinimo'])) {
+        if (isset($data['stockMinimo']) && $data['stockMinimo'] !== null) {
             if (!is_numeric($data['stockMinimo']) || (int) $data['stockMinimo'] < 0) {
                 $errors['stockMinimo'] = 'El stock mínimo debe ser cero o positivo';
             } else {
@@ -151,7 +152,7 @@ class ProductoApiController extends AbstractController
         }
 
         if (isset($data['peso']) && $data['peso'] !== null) {
-            if (!is_numeric($data['peso']) || (float) $data['peso'] < 0) {
+            if (!is_numeric($data['peso']) || (float) $data['peso'] <= 0) {
                 $errors['peso'] = 'El peso debe ser un número positivo';
             } else {
                 $producto->setPeso((float) $data['peso']);
@@ -162,7 +163,7 @@ class ProductoApiController extends AbstractController
             $producto->setUnidadMedida($data['unidadMedida']);
         }
 
-        if (isset($data['cantidadMinima'])) {
+        if (isset($data['cantidadMinima']) && $data['cantidadMinima'] !== null) {
             if (!is_numeric($data['cantidadMinima']) || (int) $data['cantidadMinima'] < 0) {
                 $errors['cantidadMinima'] = 'La cantidad mínima debe ser cero o positiva';
             } else {

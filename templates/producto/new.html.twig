@@ -6,6 +6,16 @@
 <div class="container">
     <h1>Nuevo Producto</h1>
 
+    {% if errors|length > 0 %}
+        <div class="alert alert-danger">
+            <ul>
+                {% for error in errors %}
+                    <li>{{ error.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
     <form method="post">
         <div class="form-grid">
             <div class="form-group">

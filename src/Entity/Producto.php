@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\ProductoRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductoRepository::class)]
 #[ORM\Table(name: 'productos')]
@@ -16,18 +17,28 @@ class Producto
     #[ORM\Column]
     private ?int $id = null;
 
+    #[Assert\NotBlank(message: "El nombre es requerido")]
+    #[Assert\Length(min: 2, max: 255, minMessage: "Mínimo 2 caracteres", maxMessage: "Máximo 255 caracteres")]
     #[ORM\Column(length: 255)]
     private ?string $nombre = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $descripcion = null;
 
+    #[Assert\NotBlank(message: "El precio es requerido")]
+    #[Assert\Positive(message: "El precio debe ser mayor que 0")]
+    #[Assert\Type(type: "numeric", message: "El precio debe ser un número")]
     #[ORM\Column(type: Types::DECIMAL, precision: 10, scale: 2)]
     private ?string $precio = null;
 
+    #[Assert\NotBlank(message: "El stock es requerido")]
+    #[Assert\GreaterThanOrEqual(value: 0, message: "El stock no puede ser negativo")]
+    #[Assert\Type(type: "integer", message: "El stock debe ser un entero")]
     #[ORM\Column]
     private ?int $stock = 0;
 
+    #[Assert\GreaterThanOrEqual(value: 0, message: "El stock mínimo no puede ser negativo")]
+    #[Assert\Type(type: "integer", message: "El stock mínimo debe ser un entero")]
     #[ORM\Column(nullable: true)]
     private ?int $stock_minimo = null;
 
@@ -40,12 +51,15 @@ class Producto
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $marca = null;
 
+    #[Assert\GreaterThan(value: 0, message: "El peso debe ser mayor que 0")]
     #[ORM\Column(nullable: true)]
     private ?float $peso = null;
 
     #[ORM\Column(length: 100, nullable: true)]
     private ?string $unidad_medida = null;
 
+    #[Assert\GreaterThanOrEqual(value: 0, message: "La cantidad mínima no puede ser negativa")]
+    #[Assert\Type(type: "integer", message: "La cantidad mínima debe ser un entero")]
     #[ORM\Column(nullable: true)]
     private ?int $cantidad_minima = null;
 
