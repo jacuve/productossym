@@ -44,6 +44,17 @@ class ProductoController extends AbstractController
         ]);
     }
 
+    #[Route('/stock-bajo', name: 'producto_stock_bajo', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function stockBajo(): Response
+    {
+        $productos = $this->productoRepository->findStockBajo();
+
+        return $this->render('producto/stock_bajo.html.twig', [
+            'productos' => $productos,
+        ]);
+    }
+
     #[Route('/nuevo', name: 'producto_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request): Response
@@ -139,16 +150,5 @@ class ProductoController extends AbstractController
         }
 
         return $this->redirectToRoute('producto_index');
-    }
-
-    #[Route('/stock-bajo', name: 'producto_stock_bajo', methods: ['GET'])]
-    #[IsGranted('ROLE_ADMIN')]
-    public function stockBajo(): Response
-    {
-        $productos = $this->productoRepository->findStockBajo();
-
-        return $this->render('producto/stock_bajo.html.twig', [
-            'productos' => $productos,
-        ]);
     }
 }
