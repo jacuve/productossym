@@ -25,3 +25,11 @@ Prod : php://stderr
 
 ## Limpiar cache
 php bin/console cache:clear
+
+## Tests
+
+php vendor/bin/phpunit
+
+php vendor/bin/phpunit --coverage-html coverage
+
+php vendor/bin/phpunit tests/Unit/Entity/ProductoEntityTest.php
