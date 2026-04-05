@@ -39,12 +39,12 @@ ENTORNO:       Symfony 8 + React + PostgreSQL
 
 --- MEDIA PRIORIDAD (Importante para uso real) ---
 
-[ ] 5. PAGINACIÓN
+[X] 5. PAGINACIÓN
      - Implementar paginación en listados
      - Parámetros: page, limit
      - Totales para frontend
 
-[ ] 6. EXPORTACIÓN DE DATOS
+[X] 6. EXPORTACIÓN DE DATOS
      - Exportar productos a CSV
      - Exportar productos a Excel
      - Reporte de stock bajo en PDF

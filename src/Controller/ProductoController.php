@@ -55,6 +55,47 @@ class ProductoController extends AbstractController
         ]);
     }
 
+    #[Route('/exportar', name: 'producto_export', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function export(Request $request): Response
+    {
+        $buscar = $request->query->get('buscar');
+        
+        if ($buscar) {
+            $productos = $this->productoRepository->buscarPorNombreAll($buscar);
+        } else {
+            $productos = $this->productoRepository->findAll();
+        }
+
+        $csv = "Código,Nombre,Descripción,Categoría,Marca,Precio,Stock,Stock Mínimo,Activo\n";
+        
+        foreach ($productos as $producto) {
+            $csv .= sprintf(
+                '"%s","%s","%s","%s","%s","%s","%s","%s","%s"',
+                $this->escapeCsv($producto->getCodigo()),
+                $this->escapeCsv($producto->getNombre()),
+                $this->escapeCsv($producto->getDescripcion()),
+                $this->escapeCsv($producto->getCategoria()),
+                $this->escapeCsv($producto->getMarca()),
+                $producto->getPrecio(),
+                $producto->getStock(),
+                $producto->getStockMinimo() ?? '',
+                $producto->isActivo() ? 'Sí' : 'No'
+            ) . "\n";
+        }
+
+        $response = new Response($csv);
+        $response->headers->set('Content-Type', 'text/csv');
+        $response->headers->set('Content-Disposition', 'attachment; filename="productos_' . date('Y-m-d') . '.csv"');
+
+        return $response;
+    }
+
+    private function escapeCsv(?string $value): string
+    {
+        return str_replace(['"', "\n", "\r"], ['""', ' ', ' '], (string) $value);
+    }
+
     #[Route('/nuevo', name: 'producto_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_ADMIN')]
     public function new(Request $request): Response
