@@ -20,7 +20,8 @@
     {% if is_granted('ROLE_ADMIN') %}
     <div class="actions">
         <a href="{{ path('producto_new') }}" class="btn btn-primary">+ Nuevo Producto</a>
-        <a href="{{ path('producto_export', {buscar: buscar}) }}" class="btn">📥 Exportar CSV</a>
+        <a href="{{ path('producto_export', {buscar: buscar}) }}" class="btn">📥 CSV</a>
+        <a href="{{ path('producto_export_pdf', {buscar: buscar}) }}" class="btn">📄 PDF</a>
     </div>
     {% endif %}
 

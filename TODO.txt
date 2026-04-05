@@ -45,9 +45,9 @@ ENTORNO:       Symfony 8 + React + PostgreSQL
      - Totales para frontend
 
 [X] 6. EXPORTACIÓN DE DATOS
-     - Exportar productos a CSV
-     - Exportar productos a Excel
-     - Reporte de stock bajo en PDF
+     - Exportar productos a CSV ✓
+     - Exportar productos a PDF ✓
+     - (Excel usa CSV)
 
 [ ] 7. CATEGORÍAS
      - Crear entidad Categoria

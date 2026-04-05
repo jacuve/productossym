@@ -91,6 +91,30 @@ class ProductoController extends AbstractController
         return $response;
     }
 
+    #[Route('/exportar-pdf', name: 'producto_export_pdf', methods: ['GET'])]
+    #[IsGranted('ROLE_ADMIN')]
+    public function exportPdf(Request $request): Response
+    {
+        $buscar = $request->query->get('buscar');
+        
+        if ($buscar) {
+            $productos = $this->productoRepository->buscarPorNombreAll($buscar);
+        } else {
+            $productos = $this->productoRepository->findAll();
+        }
+
+        $html = $this->renderView('producto/pdf.html.twig', [
+            'productos' => $productos,
+            'fecha' => new \DateTime(),
+            'buscar' => $buscar,
+        ]);
+
+        $mpdf = new \Mpdf\Mpdf(['tempDir' => '/tmp']);
+        $mpdf->WriteHTML($html);
+
+        return new Response($mpdf->Output('productos_' . date('Y-m-d') . '.pdf', 'D'));
+    }
+
     private function escapeCsv(?string $value): string
     {
         return str_replace(['"', "\n", "\r"], ['""', ' ', ' '], (string) $value);
