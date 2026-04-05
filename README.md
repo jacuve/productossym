@@ -28,8 +28,10 @@ php bin/console cache:clear
 
 ## Tests
 
-php vendor/bin/phpunit
+docker compose run --rm php php vendor/bin/phpunit
 
-php vendor/bin/phpunit --coverage-html coverage
+docker compose run --rm php php vendor/bin/phpunit --coverage-html coverage
 
-php vendor/bin/phpunit tests/Unit/Entity/ProductoEntityTest.php
+docker compose run --rm php php vendor/bin/phpunit --testdox 2>&1
+
+docker compose run --rm php php vendor/bin/phpunit tests/Unit/Entity/ProductoEntityTest.php
