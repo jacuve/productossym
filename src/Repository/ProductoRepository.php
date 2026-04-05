@@ -34,6 +34,14 @@ class ProductoRepository extends ServiceEntityRepository
         }
     }
 
+    public function findAll(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.nombre', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
     public function findActivos(int $page = 1): Paginator
     {
         $query = $this->createQueryBuilder('p')
@@ -66,6 +74,17 @@ class ProductoRepository extends ServiceEntityRepository
             ->getQuery();
 
         return $this->paginate($query, $page);
+    }
+
+    public function buscarPorNombreAll(string $termino): array
+    {
+        return $this->createQueryBuilder('p')
+            ->andWhere('p.nombre LIKE :termino')
+            ->orWhere('p.codigo LIKE :termino')
+            ->setParameter('termino', '%' . $termino . '%')
+            ->orderBy('p.nombre', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     public function findByCategoria(string $categoria, int $page = 1): Paginator

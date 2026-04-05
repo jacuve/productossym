@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Listado de Productos</title>
+    <style>
+        body { font-family: Arial, sans-serif; font-size: 10px; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 6px; text-align: left; }
+        th { background-color: #4a4a4a; color: white; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { margin: 0; color: #333; }
+        .meta { color: #666; font-size: 9px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Listado de Productos</h1>
+        <p class="meta">Fecha: {{ fecha|date('d/m/Y H:i') }} {% if buscar %} - Búsqueda: "{{ buscar }}"{% endif %}</p>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Marca</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Stock Mín.</th>
+                <th>Activo</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for producto in productos %}
+            <tr>
+                <td>{{ producto.codigo ?: '-' }}</td>
+                <td>{{ producto.nombre }}</td>
+                <td>{{ producto.categoria ?: '-' }}</td>
+                <td>{{ producto.marca ?: '-' }}</td>
+                <td>{{ producto.precio|number_format(2) }}€</td>
+                <td>{{ producto.stock }}</td>
+                <td>{{ producto.stockMinimo ?: '-' }}</td>
+                <td>{{ producto.activo ? 'Sí' : 'No' }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <p style="margin-top: 20px; font-size: 9px; color: #666;">
+        Total de productos: {{ productos|length }}
+    </p>
+</body>
+</html>
