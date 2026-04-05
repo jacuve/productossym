@@ -18,20 +18,20 @@ ENTORNO:       Symfony 8 + React + PostgreSQL
      - Validar campos requeridos: nombre, precio, stock
      - Validar rangos: precio > 0, stock >= 0
 
-[ ] 2. AUTENTICACIÓN Y AUTORIZACIÓN
+[X] 2. AUTENTICACIÓN Y AUTORIZACIÓN
      - Instalar symfony/security-bundle
      - Crear entidad Usuario
      - Sistema de login/registro
      - Proteger rutas /api/* con autenticación
      - Roles: ROLE_USER, ROLE_ADMIN
 
-[ ] 3. GESTIÓN DE ERRORES
+[X] 3. GESTIÓN DE ERRORES
      - Manejo centralizado de excepciones
      - Mensajes de error amigables en API
      - Logging de errores
      - Página de error 404 personalizada
 
-[ ] 4. TESTS UNITARIOS Y DE INTEGRACIÓN
+[X] 4. TESTS UNITARIOS Y DE INTEGRACIÓN
      - Tests para ProductoRepository
      - Tests para ProductoApiController
      - Tests para componentes React
