@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuites>
+  <testsuite name="/home/jose/Documentos/proyectos/php/productossym/phpunit.dist.xml" tests="11" assertions="27" errors="0" failures="0" skipped="0" time="0.025850">
+    <testsuite name="Project Test Suite" tests="11" assertions="27" errors="0" failures="0" skipped="0" time="0.025850">
+      <testsuite name="App\Tests\Integration\Controller\ProductoApiControllerTest" file="/home/jose/Documentos/proyectos/php/productossym/tests/Integration/Controller/ProductoApiControllerTest.php" tests="3" assertions="7" errors="0" failures="0" skipped="0" time="0.019889">
+        <testcase name="testControllerDependencies" file="/home/jose/Documentos/proyectos/php/productossym/tests/Integration/Controller/ProductoApiControllerTest.php" line="13" class="App\Tests\Integration\Controller\ProductoApiControllerTest" classname="App.Tests.Integration.Controller.ProductoApiControllerTest" assertions="2" time="0.017945"/>
+        <testcase name="testProductoEntityHasRequiredFields" file="/home/jose/Documentos/proyectos/php/productossym/tests/Integration/Controller/ProductoApiControllerTest.php" line="24" class="App\Tests\Integration\Controller\ProductoApiControllerTest" classname="App.Tests.Integration.Controller.ProductoApiControllerTest" assertions="3" time="0.001313"/>
+        <testcase name="testProductoDefaultValues" file="/home/jose/Documentos/proyectos/php/productossym/tests/Integration/Controller/ProductoApiControllerTest.php" line="37" class="App\Tests\Integration\Controller\ProductoApiControllerTest" classname="App.Tests.Integration.Controller.ProductoApiControllerTest" assertions="2" time="0.000630"/>
+      </testsuite>
+      <testsuite name="App\Tests\Unit\Entity\ProductoEntityTest" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Entity/ProductoEntityTest.php" tests="7" assertions="19" errors="0" failures="0" skipped="0" time="0.003160">
+        <testcase name="testCreateProducto" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Entity/ProductoEntityTest.php" line="10" class="App\Tests\Unit\Entity\ProductoEntityTest" classname="App.Tests.Unit.Entity.ProductoEntityTest" assertions="10" time="0.000549"/>
+        <testcase name="testDefaultValues" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Entity/ProductoEntityTest.php" line="37" class="App\Tests\Unit\Entity\ProductoEntityTest" classname="App.Tests.Unit.Entity.ProductoEntityTest" assertions="4" time="0.000512"/>
+        <testcase name="testIsStockBajo" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Entity/ProductoEntityTest.php" line="47" class="App\Tests\Unit\Entity\ProductoEntityTest" classname="App.Tests.Unit.Entity.ProductoEntityTest" assertions="1" time="0.000464"/>
+        <testcase name="testIsNotStockBajo" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Entity/ProductoEntityTest.php" line="58" class="App\Tests\Unit\Entity\ProductoEntityTest" classname="App.Tests.Unit.Entity.ProductoEntityTest" assertions="1" time="0.000458"/>
+        <testcase name="testIsStockBajoWithNullMinimo" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Entity/ProductoEntityTest.php" line="69" class="App\Tests\Unit\Entity\ProductoEntityTest" classname="App.Tests.Unit.Entity.ProductoEntityTest" assertions="1" time="0.000407"/>
+        <testcase name="testToString" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Entity/ProductoEntityTest.php" line="80" class="App\Tests\Unit\Entity\ProductoEntityTest" classname="App.Tests.Unit.Entity.ProductoEntityTest" assertions="1" time="0.000371"/>
+        <testcase name="testToStringWithNull" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Entity/ProductoEntityTest.php" line="88" class="App\Tests\Unit\Entity\ProductoEntityTest" classname="App.Tests.Unit.Entity.ProductoEntityTest" assertions="1" time="0.000399"/>
+      </testsuite>
+      <testsuite name="App\Tests\Unit\Repository\ProductoRepositoryTest" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Repository/ProductoRepositoryTest.php" tests="1" assertions="1" errors="0" failures="0" skipped="0" time="0.002801">
+        <testcase name="testRepositoryExists" file="/home/jose/Documentos/proyectos/php/productossym/tests/Unit/Repository/ProductoRepositoryTest.php" line="19" class="App\Tests\Unit\Repository\ProductoRepositoryTest" classname="App.Tests.Unit.Repository.ProductoRepositoryTest" assertions="1" time="0.002801"/>
+      </testsuite>
+    </testsuite>
+  </testsuite>
+</testsuites>

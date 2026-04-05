@@ -23,4 +23,5 @@ class ProductoRepositoryTest extends TestCase
         $repository = new ProductoRepository($this->registry);
         $this->assertInstanceOf(ProductoRepository::class, $repository);
     }
+
 }
