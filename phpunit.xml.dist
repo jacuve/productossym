@@ -8,7 +8,12 @@
 >
     <php>
         <env name="APP_ENV" value="test"/>
+        <env name="APP_SECRET" value="testsecret123"/>
         <env name="DATABASE_URL" value="postgresql://test:test@127.0.0.1:5432/test"/>
+        <env name="KERNEL_CLASS" value="App\Kernel"/>
+        <env name="DEFAULT_URI" value="http://localhost"/>
+        <env name="MAILER_DSN" value="null://null"/>
+        <env name="MESSENGER_TRANSPORT_DSN" value="doctrine://default?auto_setup=0"/>
     </php>
 
     <source>
