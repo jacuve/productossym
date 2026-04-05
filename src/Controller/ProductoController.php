@@ -24,20 +24,23 @@ class ProductoController extends AbstractController
     #[Route('/', name: 'producto_index', methods: ['GET'])]
     public function index(Request $request): Response
     {
+        $page = max(1, (int) $request->query->get('page', 1));
         $buscar = $request->query->get('buscar');
 
         if ($buscar) {
-            $productos = $this->productoRepository->buscarPorNombre($buscar);
+            $paginator = $this->productoRepository->buscarPorNombre($buscar, $page);
         } else {
-            $productos = $this->productoRepository->findActivos();
+            $paginator = $this->productoRepository->findActivos($page);
         }
 
         $stockBajo = $this->productoRepository->findStockBajo();
 
         return $this->render('producto/index.html.twig', [
-            'productos' => $productos,
+            'productos' => $paginator,
             'stock_bajo' => $stockBajo,
             'buscar' => $buscar,
+            'currentPage' => $page,
+            'totalPages' => ceil($paginator->count() / ProductoRepository::ITEMS_PER_PAGE),
         ]);
     }
 

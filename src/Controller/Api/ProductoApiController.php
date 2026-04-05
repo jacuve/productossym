@@ -26,16 +26,22 @@ class ProductoApiController extends AbstractController
     #[Route('', name: 'api_productos_list', methods: ['GET'])]
     public function index(Request $request): JsonResponse
     {
+        $page = max(1, (int) $request->query->get('page', 1));
         $buscar = $request->query->get('buscar');
         
         if ($buscar) {
-            $productos = $this->productoRepository->buscarPorNombre($buscar);
+            $paginator = $this->productoRepository->buscarPorNombre($buscar, $page);
         } else {
-            $productos = $this->productoRepository->findActivos();
+            $paginator = $this->productoRepository->findActivos($page);
         }
 
         return $this->json([
-            'data' => $productos,
+            'data' => iterator_to_array($paginator),
+            'pagination' => [
+                'currentPage' => $page,
+                'totalItems' => $paginator->count(),
+                'itemsPerPage' => \App\Repository\ProductoRepository::ITEMS_PER_PAGE,
+            ],
         ]);
     }
 

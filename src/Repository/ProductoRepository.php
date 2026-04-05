@@ -4,10 +4,13 @@ namespace App\Repository;
 
 use App\Entity\Producto;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 class ProductoRepository extends ServiceEntityRepository
 {
+    public const ITEMS_PER_PAGE = 10;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Producto::class);
@@ -31,14 +34,51 @@ class ProductoRepository extends ServiceEntityRepository
         }
     }
 
-    public function findActivos(): array
+    public function findActivos(int $page = 1): Paginator
     {
-        return $this->createQueryBuilder('p')
+        $query = $this->createQueryBuilder('p')
             ->andWhere('p.activo = :activo')
             ->setParameter('activo', true)
             ->orderBy('p.nombre', 'ASC')
-            ->getQuery()
-            ->getResult();
+            ->getQuery();
+
+        return $this->paginate($query, $page);
+    }
+
+    public function findAllOrderedByStock(int $page = 1): Paginator
+    {
+        $query = $this->createQueryBuilder('p')
+            ->andWhere('p.activo = :activo')
+            ->setParameter('activo', true)
+            ->orderBy('p.stock', 'ASC')
+            ->getQuery();
+
+        return $this->paginate($query, $page);
+    }
+
+    public function buscarPorNombre(string $termino, int $page = 1): Paginator
+    {
+        $query = $this->createQueryBuilder('p')
+            ->andWhere('p.nombre LIKE :termino')
+            ->orWhere('p.codigo LIKE :termino')
+            ->setParameter('termino', '%' . $termino . '%')
+            ->orderBy('p.nombre', 'ASC')
+            ->getQuery();
+
+        return $this->paginate($query, $page);
+    }
+
+    public function findByCategoria(string $categoria, int $page = 1): Paginator
+    {
+        $query = $this->createQueryBuilder('p')
+            ->andWhere('p.categoria = :categoria')
+            ->andWhere('p.activo = :activo')
+            ->setParameter('categoria', $categoria)
+            ->setParameter('activo', true)
+            ->orderBy('p.nombre', 'ASC')
+            ->getQuery();
+
+        return $this->paginate($query, $page);
     }
 
     public function findStockBajo(): array
@@ -52,36 +92,13 @@ class ProductoRepository extends ServiceEntityRepository
             ->getResult();
     }
 
-    public function buscarPorNombre(string $termino): array
+    private function paginate($query, int $page): Paginator
     {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.nombre LIKE :termino')
-            ->orWhere('p.codigo LIKE :termino')
-            ->setParameter('termino', '%' . $termino . '%')
-            ->orderBy('p.nombre', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
+        $paginator = new Paginator($query);
+        $paginator->getQuery()
+            ->setFirstResult(self::ITEMS_PER_PAGE * ($page - 1))
+            ->setMaxResults(self::ITEMS_PER_PAGE);
 
-    public function findByCategoria(string $categoria): array
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.categoria = :categoria')
-            ->andWhere('p.activo = :activo')
-            ->setParameter('categoria', $categoria)
-            ->setParameter('activo', true)
-            ->orderBy('p.nombre', 'ASC')
-            ->getQuery()
-            ->getResult();
-    }
-
-    public function findAllOrderedByStock(): array
-    {
-        return $this->createQueryBuilder('p')
-            ->andWhere('p.activo = :activo')
-            ->setParameter('activo', true)
-            ->orderBy('p.stock', 'ASC')
-            ->getQuery()
-            ->getResult();
+        return $paginator;
     }
 }
