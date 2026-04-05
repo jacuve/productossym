@@ -91,4 +91,5 @@ class ProductoEntityTest extends TestCase
 
         $this->assertEquals('Producto sin nombre', (string) $producto);
     }
+
 }

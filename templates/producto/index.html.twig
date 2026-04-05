@@ -73,6 +73,20 @@
                 {% endfor %}
             </tbody>
         </table>
+
+        {% if totalPages > 1 %}
+        <nav class="pagination">
+            {% if currentPage > 1 %}
+                <a href="{{ path('producto_index', {page: currentPage - 1, buscar: buscar}) }}" class="btn">Anterior</a>
+            {% endif %}
+            
+            <span>Página {{ currentPage }} de {{ totalPages }}</span>
+            
+            {% if currentPage < totalPages %}
+                <a href="{{ path('producto_index', {page: currentPage + 1, buscar: buscar}) }}" class="btn">Siguiente</a>
+            {% endif %}
+        </nav>
+        {% endif %}
     {% endif %}
 </div>
 {% endblock %}
